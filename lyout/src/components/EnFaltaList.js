@@ -8,7 +8,7 @@ import axios from 'axios';
 import '../styles/custom.css';
 
 function EnFaltaList({ items, onItemUpdated, onItemDeleted }) {
-  const itemsEnFalta = items.filter(i => i.cantidad === 0);
+  const itemsEnFalta = Array.isArray(items) ? items.filter(i => i.cantidad === 0) : [];
   const [editItem, setEditItem] = useState(null);
   const [editForm, setEditForm] = useState({ nombre: '', descripcion: '', cantidad: '', proveedor: '' });
   const [pendingDelete, setPendingDelete] = useState(null);

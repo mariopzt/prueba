@@ -9,7 +9,8 @@ import { FaEye, FaTrash, FaExclamationTriangle, FaArrowLeft, FaArrowRight } from
 
 const ItemList = ({ items, onItemUpdated, onItemDeleted }) => {
   // Ordenar items: primero los de cantidad baja
-  const sortedItems = [...items].sort((a, b) => {
+  const safeItems = Array.isArray(items) ? items : [];
+  const sortedItems = [...safeItems].sort((a, b) => {
     // Primero los items con cantidad <= 2
     if (a.cantidad <= 2 && b.cantidad > 2) return -1;
     if (b.cantidad <= 2 && a.cantidad > 2) return 1;

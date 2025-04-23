@@ -115,6 +115,8 @@ const AppContent = () => {
     fetchItems();
   };
 
+  const safeItems = Array.isArray(items) ? items : [];
+
   return (
     <ErrorBoundary>
       <div className="App">
@@ -133,7 +135,7 @@ const AppContent = () => {
                 {currentTab === 'list' && (
                   <div className="itemlist-all">
                     <ItemList 
-                      items={items.filter(item => item.cantidad > 0)} 
+                      items={safeItems.filter(item => item.cantidad > 0)} 
                       onItemUpdated={handleItemUpdated}
                       onItemDeleted={handleItemDeleted}
                     />
@@ -152,7 +154,7 @@ const AppContent = () => {
                 {currentTab === 'enfalta' && (
                   <div className="form-container-boton">
                     <EnFaltaList 
-                      items={items} 
+                      items={Array.isArray(items) ? items : []} 
                       onItemUpdated={handleItemUpdated}
                       onItemDeleted={handleItemDeleted}
                     />

@@ -73,7 +73,7 @@ const itemsDisponibles = items.filter(i => i.cantidad > 0);
 
   // Eliminar item de la lista
   const handleRemoveSelected = (itemId) => {
-    setSelectedItems(prev => prev.filter(i => i._id !== itemId));
+    setSelectedItems(prev => (Array.isArray(prev) ? prev : []).filter(i => i._id !== itemId));
     setCantidadMap(prev => {
       const cp = { ...prev };
       delete cp[itemId];
