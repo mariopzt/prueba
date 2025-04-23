@@ -5,6 +5,11 @@ require('dotenv').config();
 
 const app = express();
 
+// Endpoint raíz para comprobar funcionamiento
+app.get('/', (req, res) => {
+  res.json({ message: 'API funcionando' });
+});
+
 // Middleware
 app.use(cors());
 app.use(express.json());
