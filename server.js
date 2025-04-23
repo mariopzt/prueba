@@ -5,6 +5,11 @@ require('dotenv').config();
 
 const app = express();
 
+// Endpoint mínimo para comprobar funcionamiento
+app.get('/ping', (req, res) => {
+  res.send('pong');
+});
+
 // Endpoint raíz para comprobar funcionamiento
 app.get('/', (req, res) => {
   res.json({ message: 'API funcionando' });
