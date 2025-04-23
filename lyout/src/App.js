@@ -27,7 +27,7 @@ function Login({ onLogin }) {
     setError("");
     try {
       // Cambia la URL si tu backend está en otro puerto o dominio
-      const response = await axios.post("http://localhost:3000/api/login", { username, password });
+      const response = await axios.post(`${process.env.REACT_APP_API_BASE}/api/login`, { username, password });
       localStorage.setItem('isLoggedIn', 'true');
       localStorage.setItem('loggedUser', username);
       onLogin(username);
