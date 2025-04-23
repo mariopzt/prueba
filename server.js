@@ -24,7 +24,7 @@ app.use('/api/pedidos', pedidosRouter);
 
 // === Endpoints CRUD para usuarios como objetos normales ===
 const bcrypt = require('bcryptjs');
-const User = require('./models/User');
+const User = require('./models/user');
 
 // Registro seguro de usuario (guardar usuario y contraseña hasheada)
 app.post('/api/register', async (req, res) => {
