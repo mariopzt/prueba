@@ -23,7 +23,7 @@ app.use('/api/items', itemsRouter);
 app.use('/api/pedidos', pedidosRouter);
 
 // === Endpoints CRUD para usuarios como objetos normales ===
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const User = require('./models/User');
 
 // Registro seguro de usuario (guardar usuario y contraseña hasheada)
@@ -49,7 +49,7 @@ app.post('/api/login', async (req, res) => {
     const user = await User.findOne({ username });
     console.log('Usuario encontrado en BD:', user);
     if (!user) return res.status(401).json({ message: 'Usuario o contraseña incorrectos' });
-    const valid = await require('bcrypt').compare(password, user.password);
+    const valid = await bcrypt.compare(password, user.password);
     console.log('Resultado bcrypt.compare:', valid);
     if (!valid) return res.status(401).json({ message: 'Usuario o contraseña incorrectos' });
     res.json({ message: 'Login exitoso' });
