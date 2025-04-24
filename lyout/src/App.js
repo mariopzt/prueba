@@ -176,12 +176,13 @@ function App() {
 
   // Modifica el login para guardar el usuario
   const handleLogin = (user) => {
-    setIsLoggedIn(true);
-    setUsername(user);
-    localStorage.setItem('loggedUser', user);
-    setShowWelcome(true);
-    setTimeout(() => setShowWelcome(false), 2000);
-  };
+  setIsLoggedIn(true);
+  setUsername(user);
+  localStorage.setItem('loggedUser', user);
+  setShowWelcome(true);
+  setTimeout(() => setShowWelcome(false), 2000);
+  localStorage.removeItem('lowStockNotified'); // Reinicia el aviso de bajo stock al iniciar sesión
+};
 
   // Si no está logueado, muestra el login
   if (!isLoggedIn) {
