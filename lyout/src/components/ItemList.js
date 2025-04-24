@@ -5,7 +5,7 @@ import axios from 'axios';
 import '../styles/custom.css';
 import '../styles/custom-modal-view.css';
 import '../styles/media-mobile-500.css';
-import { FaEye, FaTrash, FaExclamationTriangle, FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import { FaEye, FaTrash, FaExclamationTriangle, FaArrowLeft, FaArrowRight, FaExclamationCircle } from 'react-icons/fa';
 
 const ItemList = ({ items, onItemUpdated, onItemDeleted }) => {
   // Ordenar items: primero los de cantidad baja
@@ -29,6 +29,7 @@ const ItemList = ({ items, onItemUpdated, onItemDeleted }) => {
   });
   const [currentPage, setCurrentPage] = useState(1);
   const [fadeGrid, setFadeGrid] = useState(false);
+
 
   // Animar el grid al cambiar de página
   useEffect(() => {
@@ -56,7 +57,6 @@ const ItemList = ({ items, onItemUpdated, onItemDeleted }) => {
   const itemsPerPage = 10;
   const totalPages = Math.ceil(filteredItems.length / itemsPerPage);
   const paginatedItems = filteredItems.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
-
 
   const handleEdit = (item) => {
     setEditItem(item);
@@ -133,7 +133,10 @@ const ItemList = ({ items, onItemUpdated, onItemDeleted }) => {
                   transition={{ duration: 0.22 }}
                 >
                   <div className="item-card-content">
-                    <div className="item-card-title">
+                    <div className="item-card-title" style={{ position: 'relative', display: 'flex', alignItems: 'center', gap: '0.4rem' }}>
+                      {item.cantidad <= 2 && (
+                        <FaExclamationCircle style={{ color: '#e53935', fontSize: '1.1rem', position: 'absolute', left: -18, top: 2, zIndex: 2 }} title="¡Pocas unidades!" />
+                      )}
                       <span>{item.nombre}</span>
                     </div>
                     {isMobile ? (

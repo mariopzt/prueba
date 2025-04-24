@@ -697,7 +697,7 @@ body, html {
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
-  padding: 30px;
+  padding-top: 30px;
 }
 
 .item-card-content {
