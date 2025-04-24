@@ -84,7 +84,7 @@ function EnFaltaList({ items, onItemUpdated, onItemDeleted }) {
             {itemsEnFalta.map(item => (
               <motion.div key={item._id} initial={{ opacity: 0, scale: 0.92 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.23 }} className="enfalta-card">
                 <div>
-                  <strong className='titulo-botellaa'>{item.nombre}</strong><br/>
+                  <strong className='titulo-botella'>{item.nombre}</strong><br/>
                   <span cl assName="enfalta-proveedor">Provedor: {item.proveedor || 'Sin provedor'}</span>
                 </div>
                 <button aria-label="Editar" onClick={() => handleEditClick(item)} className="enfalta-edit-btn">
@@ -102,9 +102,42 @@ function EnFaltaList({ items, onItemUpdated, onItemDeleted }) {
               <Typography variant="h6" sx={{ mb: 2 }}>Editar producto en falta</Typography>
               <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
                 <h4 style={{marginBottom: 8, marginTop: 0, fontSize: '1.5rem', fontWeight: 700}}>{editForm.nombre}</h4>
-                <TextField className="item-boton" label="Descripción" name="descripcion" value={editForm.descripcion} onChange={handleEditChange} size="small" fullWidth multiline minRows={2} />
-                <TextField className="item-boton" label="Cantidad" name="cantidad" value={editForm.cantidad} onChange={handleEditChange} size="small" type="number" fullWidth />
-                <TextField className="item-boton" label="Provedor" name="proveedor" value={editForm.proveedor} onChange={handleEditChange} size="small" fullWidth />
+                <TextField 
+  className="item-boton"
+  label="Descripción"
+  name="descripcion"
+  value={editForm.descripcion}
+  onChange={handleEditChange}
+  size="small"
+  fullWidth
+  multiline
+  minRows={2}
+  InputLabelProps={{ style: { background: "#191b23", padding: "0 4px", zIndex: 2 } }}
+  InputProps={{ style: { paddingTop: 12 } }}
+/>
+                <TextField 
+                  className="item-boton"
+                  label="Cantidad"
+                  name="cantidad"
+                  value={editForm.cantidad}
+                  onChange={handleEditChange}
+                  size="small"
+                  type="number"
+                  fullWidth
+                  InputLabelProps={{ style: { background: "#191b23", padding: "0 4px", zIndex: 2 } }}
+                  InputProps={{ style: { paddingTop: 12 } }}
+                />
+                <TextField 
+                  className="item-boton"
+                  label="Provedor"
+                  name="proveedor"
+                  value={editForm.proveedor}
+                  onChange={handleEditChange}
+                  size="small"
+                  fullWidth
+                  InputLabelProps={{ style: { background: "#191b23", padding: "0 4px", zIndex: 2 } }}
+                  InputProps={{ style: { paddingTop: 12 } }}
+                />
               </Box>
               <Box sx={{ display: 'flex', justifyContent: 'flex-end', gap: 1, mt: 3 }}>
                 <Button component="button" className="botonesDeEliminar" onClick={() => setEditItem(null)} disabled={saving}>Cancelar</Button>
