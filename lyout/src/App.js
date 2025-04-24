@@ -121,7 +121,13 @@ const AppContent = () => {
     <ErrorBoundary>
       <div className="App">
         <div className="main-content">
-          <Navbar currentTab={currentTab} onTabChange={setCurrentTab} showHeroButton={true} lowStockCount={safeItems.filter(item => item.cantidad <= 2).length} />
+          <Navbar 
+  currentTab={currentTab} 
+  onTabChange={setCurrentTab} 
+  showHeroButton={true} 
+  lowStockCount={safeItems.filter(item => item.cantidad <= 2).length}
+  missingCount={safeItems.filter(item => item.cantidad === 0).length}
+/>
           {currentTab === 'hero' && (
             <Hero onTabChange={setCurrentTab} />
           )}

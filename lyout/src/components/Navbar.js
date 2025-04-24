@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import SettingsIcon from './SettingsIcon';
 import { FaExclamationCircle } from 'react-icons/fa';
+import { motion } from 'framer-motion';
 
 
-function Navbar({ currentTab, onTabChange, lowStockCount }) {
+function Navbar({ currentTab, onTabChange, lowStockCount, missingCount }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [notified, setNotified] = useState(() => {
     return localStorage.getItem('lowStockNotified') === 'true';
@@ -15,7 +16,6 @@ function Navbar({ currentTab, onTabChange, lowStockCount }) {
       localStorage.setItem('lowStockNotified', 'true');
     }
   }, [currentTab, notified]);
-  // Bloquear scroll al abrir menú
   React.useEffect(() => {
     if (menuOpen) {
       document.body.classList.add('no-scroll');
@@ -30,7 +30,6 @@ function Navbar({ currentTab, onTabChange, lowStockCount }) {
     onTabChange(tab);
   };
 
-  // Detect if mobile (700px or less)
   const [isMobile, setIsMobile] = useState(window.innerWidth <= 700);
 
   React.useEffect(() => {
@@ -110,29 +109,55 @@ function Navbar({ currentTab, onTabChange, lowStockCount }) {
       display: 'flex',
       alignItems: 'center',
     }}>
-      <FaExclamationCircle style={{ color: '#fff', fontSize: '1.15rem', verticalAlign: 'middle' }} title={`¡Hay items con poco stock!`} />
+      <motion.span
+  animate={{ x: [0, -8, 8, -8, 8, 0] }}
+  transition={{ duration: 1.2, repeat: Infinity, ease: 'easeInOut' }}
+  style={{ display: 'inline-block' }}
+>
+  <FaExclamationCircle style={{ color: '#B31103', fontSize: '1.15rem', verticalAlign: 'middle' }} title={`¡Hay items con poco stock!`} />
+</motion.span>
     </span>
   )}
-  Lista de Items
+  Lista de Objetos
 </button>
             <button
               className={`navbar-btn-menuList${currentTab === 'add' ? ' active' : ''}`}
               onClick={e => { e.stopPropagation(); handleTabChange('add'); }}
             >
-              Agregar Nuevo Item
+              Agregar
             </button>
             <button
               className={`navbar-btn-menuList${currentTab === 'subtract' ? ' active' : ''}`}
               onClick={e => { e.stopPropagation(); handleTabChange('subtract'); }}
             >
-              Restar Items
+              Restar 
             </button>
             <button
-              className={`navbar-btn-menuList${currentTab === 'enfalta' ? ' active' : ''}`}
-              onClick={e => { e.stopPropagation(); handleTabChange('enfalta'); }}
-            >
-              En falta
-            </button>
+  className={`navbar-btn-menuList${currentTab === 'enfalta' ? ' active' : ''}`}
+  style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+  onClick={e => { e.stopPropagation(); handleTabChange('enfalta'); }}
+>
+  {(missingCount > 0 && currentTab !== 'enfalta') && (
+    <span style={{
+      position: 'absolute',
+      top: -12,
+      right: '50%',
+      transform: 'translateX(50%)',
+      zIndex: 10,
+      display: 'flex',
+      alignItems: 'center',
+    }}>
+      <motion.span
+        animate={{ x: [0, -8, 8, -8, 8, 0] }}
+        transition={{ duration: 1.2, repeat: Infinity, ease: 'easeInOut' }}
+        style={{ display: 'inline-block' }}
+      >
+        <FaExclamationCircle style={{ color: '#B31103', fontSize: '1.15rem', verticalAlign: 'middle' }} title={`¡Hay items en falta!`} />
+      </motion.span>
+    </span>
+  )}
+  En falta
+</button>
             {/* Botón de salir */}
             <button
               className="navbar-btn navbar-btn-logout"

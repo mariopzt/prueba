@@ -656,7 +656,9 @@ body, html {
   width: 100%;
   box-sizing: border-box;
 }
-
+.titulo-botella{
+color:#5e6e88bd; 
+}
 
 .container {
   display: flex;
