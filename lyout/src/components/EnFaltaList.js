@@ -84,7 +84,7 @@ function EnFaltaList({ items, onItemUpdated, onItemDeleted }) {
             {itemsEnFalta.map(item => (
               <motion.div key={item._id} initial={{ opacity: 0, scale: 0.92 }} animate={{ opacity: 1, scale: 1 }} transition={{ duration: 0.23 }} className="enfalta-card">
                 <div>
-                  <strong className='titulo-botella'>{item.nombre}</strong><br/>
+                  <strong className='titulo-botellaa'>{item.nombre}</strong><br/>
                   <span cl assName="enfalta-proveedor">Provedor: {item.proveedor || 'Sin provedor'}</span>
                 </div>
                 <button aria-label="Editar" onClick={() => handleEditClick(item)} className="enfalta-edit-btn">

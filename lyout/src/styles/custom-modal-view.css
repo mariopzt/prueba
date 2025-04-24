@@ -89,10 +89,23 @@
   max-height: 200px;
   overflow: hidden;
   font-size: 1.08rem;
-  color: #bbbbbb;
+  overflow-y: auto;
   font-style: italic;
+  scrollbar-width: thin;
+  scrollbar-color:  #455466 transparent;
 }
-.modal-view-cantidad {
+.modal-view-desc::-webkit-scrollbar {
+  width: 7px;
+  background: red;
+  border-radius: 6px;
+}
+.modal-view-desc::-webkit-scrollbar-thumb {
+  background: red;
+  border-radius: 6px;
+}
+.modal-view-desc::-webkit-scrollbar-track {
+  background: transparent;
+}.modal-view-cantidad {
   font-size: 1.17rem;
   color: #d97706;
   font-weight: 600;
