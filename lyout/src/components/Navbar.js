@@ -1,10 +1,20 @@
 import React, { useState } from 'react';
 import SettingsIcon from './SettingsIcon';
+import { FaExclamationCircle } from 'react-icons/fa';
 
 
-function Navbar({ currentTab, onTabChange }) {
+function Navbar({ currentTab, onTabChange, lowStockCount }) {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [notified, setNotified] = useState(() => {
+    return localStorage.getItem('lowStockNotified') === 'true';
+  });
 
+  React.useEffect(() => {
+    if (currentTab === 'list' && !notified) {
+      setNotified(true);
+      localStorage.setItem('lowStockNotified', 'true');
+    }
+  }, [currentTab, notified]);
   // Bloquear scroll al abrir menú
   React.useEffect(() => {
     if (menuOpen) {
@@ -86,11 +96,25 @@ function Navbar({ currentTab, onTabChange }) {
               Inicio
             </button>
             <button
-              className={`navbar-btn-menuList${currentTab === 'list' ? ' active' : ''}`}
-              onClick={e => { e.stopPropagation(); handleTabChange('list'); }}
-            >
-              Lista de Items
-            </button>
+  className={`navbar-btn-menuList${currentTab === 'list' ? ' active' : ''}`}
+  style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}
+  onClick={e => { e.stopPropagation(); handleTabChange('list'); }}
+>
+  {(lowStockCount > 0 && currentTab !== 'list' && !notified) && (
+    <span style={{
+      position: 'absolute',
+      top: -12,
+      right: '50%',
+      transform: 'translateX(50%)',
+      zIndex: 10,
+      display: 'flex',
+      alignItems: 'center',
+    }}>
+      <FaExclamationCircle style={{ color: '#fff', fontSize: '1.15rem', verticalAlign: 'middle' }} title={`¡Hay items con poco stock!`} />
+    </span>
+  )}
+  Lista de Items
+</button>
             <button
               className={`navbar-btn-menuList${currentTab === 'add' ? ' active' : ''}`}
               onClick={e => { e.stopPropagation(); handleTabChange('add'); }}
