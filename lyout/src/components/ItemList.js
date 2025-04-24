@@ -140,7 +140,7 @@ const ItemList = ({ items, onItemUpdated, onItemDeleted }) => {
                       <span>{item.nombre}</span>
                     </div>
                     {isMobile ? (
-                      <button className="item-card-edit-button" onClick={e => { e.stopPropagation(); handleEdit(item); }}><FaEye /> Ver</button>
+                      <button className="item-card-edit-button" onClick={e => { e.stopPropagation(); handleEdit(item); }}><FaEye /> <span className="ver-text">Ver</span></button>
                     ) : (
                       <>
                         <div className="item-card-provider">
@@ -150,7 +150,7 @@ const ItemList = ({ items, onItemUpdated, onItemDeleted }) => {
                           <span style={{fontFamily: 'monospace'}}>{item.cantidad}</span>
                         </div>
                         <div className="item-card-edit">
-                          <button className="item-card-edit-button" onClick={e => { e.stopPropagation(); handleEdit(item); }}><FaEye /> Ver</button>
+                          <button className="item-card-edit-button" onClick={e => { e.stopPropagation(); handleEdit(item); }}><FaEye /> <span className="ver-text">Ver</span></button>
                         </div>
                       </>
                     )}
