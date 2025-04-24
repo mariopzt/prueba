@@ -113,7 +113,7 @@ const ItemForm = ({ onItemAdded }) => {
             />
             <input
               type="text"
-              placeholder="Provedor"
+              placeholder="Proveedor"
               name="proveedor"
               value={formData.proveedor}
               onChange={handleChange}
