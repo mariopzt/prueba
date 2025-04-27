@@ -29,8 +29,48 @@ function randomLines(key) {
 
 export default function SettingsActions() {
   const [selected, setSelected] = useState('');
+  const [showModal, setShowModal] = useState(false);
+  const [modalPassword, setModalPassword] = useState('');
+
+  function handleNuevoUsuarioSubmit(e) {
+    e.preventDefault();
+    setShowModal(true);
+  }
+
+  function handleModalClose() {
+    setShowModal(false);
+    setModalPassword('');
+  }
+
+  function handleModalContinue() {
+    // Aquí podrías manejar la lógica de validación o envío
+    setShowModal(false);
+    setModalPassword('');
+    // ...
+  }
+
   return (
-    <div className="settings-actions">
+    <>
+      {showModal && (
+        <div className="settings-modal-overlay">
+          <div className="settings-modal">
+            <div className="settings-modal-title">Por favor escriba su contraseña</div>
+            <input
+              type="password"
+              className="settings-input"
+              placeholder="Contraseña"
+              value={modalPassword}
+              onChange={e => setModalPassword(e.target.value)}
+              style={{ width: '100%', margin: '20px 0 18px 0', padding: '10px', fontSize: 17, borderRadius: 6 }}
+            />
+            <div style={{ display: 'flex', gap: 16, justifyContent: 'center' , marginTop: 10 }}>
+              <button className="settings-modal-btn" style={{ background: '#1976d2', color: '#fff', padding: '8px 24px', borderRadius: 6, border: 'none', fontWeight: 700, fontSize: 16, cursor: 'pointer' }} onClick={handleModalContinue}>Continuar</button>
+              <button className="settings-modal-btn" style={{ background: '#e74c3c', color: '#fff', padding: '8px 24px', borderRadius: 6, border: 'none', fontWeight: 700, fontSize: 16, cursor: 'pointer' }} onClick={handleModalClose}>Cerrar</button>
+            </div>
+          </div>
+        </div>
+      )}
+      <div className="settings-actions">
       {opciones.map(op => (
         <div
           key={op.key}
@@ -50,7 +90,7 @@ export default function SettingsActions() {
               )}
               {op.key === 'nuevo' && (
                 <>
-                  <form className="settings-user-form" autoComplete="off" onSubmit={e => e.preventDefault()} style={{ marginBottom: 10, width: '100%', maxWidth: 320 }}>
+                  <form className="settings-user-form" autoComplete="off" onSubmit={handleNuevoUsuarioSubmit} style={{ marginBottom: 10, width: '100%', maxWidth: 320 }}>
                     <label style={{ display: 'block', marginBottom: 8, color: '#5e6e88', fontWeight: 500, fontSize: 15 }}>
                       Nombre
                       <input type="text" name="nuevo-username" className="settings-input" style={{ width: '100%', marginTop: 4, marginBottom: 14, padding: '7px 8px', borderRadius: 6, border: '1px solid #bbb', color: '#e6e6e6', fontSize: 15 }} />
@@ -90,5 +130,6 @@ export default function SettingsActions() {
         </div>
       ))}
     </div>
+    </>
   );
 }
