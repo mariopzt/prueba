@@ -70,7 +70,7 @@ export default function CambiarUsuario({ currentUsername = '' }) {
   }
 
   return (
-    <form className="cambiar-usuario-root" style={{ width: '100%', maxWidth: 350, margin: '0 auto', padding: 16, background: 'transparent' }} onSubmit={handleSubmit}>
+    <form className="cambiar-usuario-root" style={{ width: '100%', maxWidth: 350, margin: '0 auto', background: 'transparent' }} onSubmit={handleSubmit}>
       <div className="cambiar-usuario-field" style={{ marginBottom: 20 }}>
         <label style={{ display: 'block', color: '#5e6e88', fontWeight: 500, marginBottom: 6 }}>Nuevo usuario</label>
         <input
