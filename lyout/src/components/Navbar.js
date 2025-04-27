@@ -4,7 +4,7 @@ import { FaExclamationCircle } from 'react-icons/fa';
 import { motion } from 'framer-motion';
 
 
-function Navbar({ currentTab, onTabChange, lowStockCount, missingCount }) {
+function Navbar({ currentTab, onTabChange, lowStockCount, missingCount, tipoUsuario }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const [notified, setNotified] = useState(() => {
     return localStorage.getItem('lowStockNotified') === 'true';
@@ -38,6 +38,7 @@ function Navbar({ currentTab, onTabChange, lowStockCount, missingCount }) {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  console.log(tipoUsuario)
   return (
     <div className="navbar">
       <div className="navbar-inner">
@@ -132,6 +133,15 @@ function Navbar({ currentTab, onTabChange, lowStockCount, missingCount }) {
             >
               Restar 
             </button>
+            {/* Solo mostrar el botón de ajustes si el usuario es admin */}
+            {tipoUsuario === 'admin' && (
+              <button
+                className={`navbar-btn-menuList${currentTab === 'ajustes' ? ' active' : ''}`}
+                onClick={e => { e.stopPropagation(); handleTabChange('ajustes'); }}
+              >
+                Ajustes
+              </button>
+            )}
             <button
   className={`navbar-btn-menuList${currentTab === 'enfalta' ? ' active' : ''}`}
   style={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}

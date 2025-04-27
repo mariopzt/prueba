@@ -39,11 +39,13 @@ const User = require('./models/user');
 // Registro seguro de usuario (guardar usuario y contraseña hasheada)
 app.post('/api/register', async (req, res) => {
   try {
-    const { username, password } = req.body;
+    // Permite recibir 'tipo' o 'Tipo' pero siempre guarda en 'Tipo' (mayúscula)
+    const { username, password, tipo } = req.body;
     const existing = await User.findOne({ username });
     if (existing) return res.status(400).json({ message: 'El usuario ya existe' });
     const passwordHash = await bcrypt.hash(password, 10);
-    const user = new User({ username, password: passwordHash });
+    
+    const user = new User({ username, password: passwordHash, tipo: tipo || '' });
     await user.save();
     res.json({ message: 'Usuario registrado correctamente' });
   } catch (error) {
@@ -51,24 +53,21 @@ app.post('/api/register', async (req, res) => {
   }
 });
 
-// Login seguro
 app.post('/api/login', async (req, res) => {
   try {
-    const { username, password } = req.body;
-    console.log('Login recibido:', { username, password });
+    const { username, password  } = req.body;
     const user = await User.findOne({ username });
-    console.log('Usuario encontrado en BD:', user);
     if (!user) return res.status(401).json({ message: 'Usuario o contraseña incorrectos' });
+    // Verificar el campo Tipo del usuario
     const valid = await bcrypt.compare(password, user.password);
-    console.log('Resultado bcrypt.compare:', valid);
     if (!valid) return res.status(401).json({ message: 'Usuario o contraseña incorrectos' });
-    res.json({ message: 'Login exitoso' });
+    res.json({ username: user.username, tipo: user.Tipo });
   } catch (error) {
     console.error('Error en /api/login:', error);
     res.status(500).json({ message: 'Error en el servidor', error: error.message });
   }
 });
-//epa
+
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, '0.0.0.0', () => {

@@ -7,6 +7,7 @@ import './styles/login.css';
 import './styles/autocomplete-compact.css';
 import './styles/media-navbar.css';
 import Hero from './components/Hero';
+import Welcome from './components/Welcome';
 import ErrorBoundary from './components/ErrorBoundary';
 import { Container, CssBaseline, createTheme, ThemeProvider, Box, Typography, Paper } from '@mui/material';
 import ItemForm from './components/ItemForm';
@@ -28,13 +29,17 @@ function Login({ onLogin }) {
     try {
       // Cambia la URL si tu backend está en otro puerto o dominio
       const response = await axios.post(`${process.env.REACT_APP_API_BASE}/api/login`, { username, password });
+      // Guarda los datos en localStorage y pásalos a App.js
       localStorage.setItem('isLoggedIn', 'true');
-      localStorage.setItem('loggedUser', username);
-      onLogin(username);
+      localStorage.setItem('loggedUser', response.data.username);
+      localStorage.setItem('tipoUsuario', response.data.tipo);
+      // Pasa ambos datos a App.js (nombre de usuario y tipo)
+      onLogin({ username: response.data.username, tipo: response.data.tipo });
     } catch (err) {
       setError('Usuario o contraseña incorrectos');
     }
   };
+
 
   return (
     <div className="login-bg">
@@ -122,12 +127,13 @@ const AppContent = () => {
       <div className="App">
         <div className="main-content">
           <Navbar 
-  currentTab={currentTab} 
-  onTabChange={setCurrentTab} 
-  showHeroButton={true} 
-  lowStockCount={safeItems.filter(item => item.cantidad <= 2).length}
-  missingCount={safeItems.filter(item => item.cantidad === 0).length}
-/>
+            currentTab={currentTab} 
+            onTabChange={setCurrentTab} 
+            showHeroButton={true} 
+            lowStockCount={safeItems.filter(item => item.cantidad <= 2).length}
+            missingCount={safeItems.filter(item => item.cantidad === 0).length}
+            tipoUsuario={localStorage.getItem('tipoUsuario') || ''}
+          />
           {currentTab === 'hero' && (
             <Hero onTabChange={setCurrentTab} />
           )}
@@ -179,16 +185,20 @@ function App() {
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn') === 'true');
   const [showWelcome, setShowWelcome] = useState(false);
   const [username, setUsername] = useState(localStorage.getItem('loggedUser') || '');
+  const [tipoUsuario, setTipoUsuario] = useState(localStorage.getItem('tipoUsuario') || '');
 
-  // Modifica el login para guardar el usuario
-  const handleLogin = (user) => {
-  setIsLoggedIn(true);
-  setUsername(user);
-  localStorage.setItem('loggedUser', user);
-  setShowWelcome(true);
-  setTimeout(() => setShowWelcome(false), 2000);
-  localStorage.removeItem('lowStockNotified'); // Reinicia el aviso de bajo stock al iniciar sesión
-};
+  // Modifica el login para guardar el usuario y tipo
+  const handleLogin = (loginData) => {
+    // Guarda ambos valores en el estado de App.js y en localStorage
+    setIsLoggedIn(true);
+    setUsername(loginData.username);
+    setTipoUsuario(loginData.tipo);
+    localStorage.setItem('loggedUser', loginData.username);
+    localStorage.setItem('tipoUsuario', loginData.tipo);
+    setShowWelcome(true);
+    setTimeout(() => setShowWelcome(false), 2000);
+    localStorage.removeItem('lowStockNotified'); // Reinicia el aviso de bajo stock al iniciar sesión
+  };
 
   // Si no está logueado, muestra el login
   if (!isLoggedIn) {
@@ -206,10 +216,7 @@ function App() {
           transition={{ duration: 0.6, type: 'spring' }}
           className="welcome-card"
         >
-          <h1 className="welcome-title">
-            ¡Bienvenido, {username || 'usuario'}!
-          </h1>
-          <div className="welcome-msg">Has iniciado sesión correctamente.</div>
+          <Welcome nombreUsuario={username} tipoUsuario={tipoUsuario} />
         </motion.div>
       </div>
     );
