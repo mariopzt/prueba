@@ -36,6 +36,50 @@ app.use('/api/pedidos', pedidosRouter);
 const bcrypt = require('bcryptjs');
 const User = require('./models/user');
 
+// Cambiar contraseña de usuario
+app.post('/api/user/update-password', async (req, res) => {
+  try {
+    const { username, newPassword } = req.body;
+    if (!username || !newPassword) return res.status(400).json({ message: 'Faltan datos' });
+    const user = await User.findOne({ username });
+    if (!user) return res.status(404).json({ message: 'Usuario no encontrado' });
+    user.password = await bcrypt.hash(newPassword, 10);
+    await user.save();
+    res.json({ message: 'Contraseña actualizada correctamente' });
+  } catch (error) {
+    res.status(500).json({ message: 'Error al actualizar contraseña', error: error.message });
+  }
+});
+
+// Agregar nuevo usuario
+app.post('/api/user/add', async (req, res) => {
+  try {
+    const { username, password, tipo } = req.body;
+    if (!username || !password) return res.status(400).json({ message: 'Faltan datos' });
+    const existing = await User.findOne({ username });
+    if (existing) return res.status(400).json({ message: 'El usuario ya existe' });
+    const passwordHash = await bcrypt.hash(password, 10);
+    const user = new User({ username, password: passwordHash, Tipo: tipo || 'usuario' });
+    await user.save();
+    res.json({ message: 'Usuario agregado correctamente' });
+  } catch (error) {
+    res.status(500).json({ message: 'Error al agregar usuario', error: error.message });
+  }
+});
+
+// Eliminar usuario
+app.delete('/api/user/delete', async (req, res) => {
+  try {
+    const { username } = req.body;
+    if (!username) return res.status(400).json({ message: 'Falta el nombre de usuario' });
+    const deleted = await User.deleteOne({ username });
+    if (deleted.deletedCount === 0) return res.status(404).json({ message: 'Usuario no encontrado' });
+    res.json({ message: 'Usuario eliminado correctamente' });
+  } catch (error) {
+    res.status(500).json({ message: 'Error al eliminar usuario', error: error.message });
+  }
+});
+
 // Registro seguro de usuario (guardar usuario y contraseña hasheada)
 app.post('/api/register', async (req, res) => {
   try {

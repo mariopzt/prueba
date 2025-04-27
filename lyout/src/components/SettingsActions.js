@@ -14,10 +14,7 @@ function randomLines(key) {
       'Colores dinámicos', 'Modo oscuro', 'Tema claro', 'Personalización avanzada', 'Paleta de usuario',
       'Fuente adaptable', 'Contraste mejorado', 'Animaciones suaves', 'Interfaz moderna', 'Diseño responsivo'
     ],
-    nuevo: [
-      'Crear usuario nuevo', 'Asignar permisos', 'Validar correo', 'Contraseña segura', 'Usuario activo',
-      'Rol asignado', 'Datos obligatorios', 'Formulario simple', 'Registro exitoso', 'Notificación enviada'
-    ],
+
     cambiar: [
       'Verificación actual', 'Nueva contraseña', 'Confirmar cambio', 'Seguridad reforzada', 'Requiere sesión',
       'Notificar usuario', 'Longitud mínima', 'Caracteres especiales', 'Cambio exitoso', 'Actualizar datos'
@@ -38,7 +35,7 @@ export default function SettingsActions() {
         <div
           key={op.key}
           className={`settings-div${selected === op.key ? ' expanded' : ''}`}
-          onClick={() => setSelected(selected === op.key ? '' : op.key)}
+          onClick={() => { if (selected !== op.key) setSelected(op.key); }}
         >
           <span className="settings-div-label">{op.label}</span>
           {selected === op.key && (
@@ -52,9 +49,26 @@ export default function SettingsActions() {
                 </div>
               )}
               {op.key === 'nuevo' && (
-                <div style={{ fontSize: 32, marginBottom: 10, color: '#43cea2' }}>
-                  <span role="img" aria-label="usuario">👤</span>
-                </div>
+                <>
+                  <form className="settings-user-form" autoComplete="off" onSubmit={e => e.preventDefault()} style={{ marginBottom: 10, width: '100%', maxWidth: 320 }}>
+                    <label style={{ display: 'block', marginBottom: 8, color: '#5e6e88', fontWeight: 500, fontSize: 15 }}>
+                      Nombre
+                      <input type="text" name="nuevo-username" className="settings-input" style={{ width: '100%', marginTop: 4, marginBottom: 14, padding: '7px 8px', borderRadius: 6, border: '1px solid #bbb', background: '#23272f', color: '#e6e6e6', fontSize: 15 }} />
+                    </label>
+                    <label style={{ display: 'block', marginBottom: 8, color: '#5e6e88', fontWeight: 500, fontSize: 15 }}>
+                      Contraseña
+                      <input type="password" name="nuevo-password" className="settings-input" style={{ width: '100%', marginTop: 4, marginBottom: 8, padding: '7px 8px', borderRadius: 6, border: '1px solid #bbb', background: '#23272f', color: '#e6e6e6', fontSize: 15 }} />
+                    </label>
+                    <button type="submit" className="settings-save-btn" style={{ width: '100%', padding: '9px 0', borderRadius: 6, background: '#1976d2', color: '#fff', fontWeight: 700, border: 'none', fontSize: 16, marginTop: 6, cursor: 'pointer' }}>
+                      Guardar
+                    </button>
+                  </form>
+                  <div className="settings-lines">
+                    {randomLines(op.key).map((line, idx) => (
+                      <div className="settings-line" key={idx}>{line}</div>
+                    ))}
+                  </div>
+                </>
               )}
               {op.key === 'cambiar' && (
                 <div style={{ marginBottom: 10 }}>

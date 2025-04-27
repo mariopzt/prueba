@@ -25,6 +25,9 @@
   box-shadow: 0 2px 12px #0001;
   padding: 0;
 }
+.settings-special-content {
+  width: 100%;
+}
 .settings-div-label {
   padding: 15px 0;
   width: 100%;
@@ -46,6 +49,13 @@
   justify-content: flex-start;
   flex-direction: column;
   padding: 20px 10px 10px 10px;
+}
+.settings-user-form {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+  max-width: 320px;
 }
 .settings-lines {
   margin: 0;
