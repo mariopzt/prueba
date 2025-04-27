@@ -34,6 +34,7 @@ function Login({ onLogin }) {
       localStorage.setItem('isLoggedIn', 'true');
       localStorage.setItem('loggedUser', response.data.username);
       localStorage.setItem('tipoUsuario', response.data.tipo);
+      localStorage.setItem('username', response.data.username); // <-- para SettingsActions.js
       // Pasa ambos datos a App.js (nombre de usuario y tipo)
       onLogin({ username: response.data.username, tipo: response.data.tipo });
     } catch (err) {
@@ -189,6 +190,13 @@ const AppContent = () => {
 };
 
 function App() {
+  // Sincroniza claves al cargar la app
+  useEffect(() => {
+    const loggedUser = localStorage.getItem('loggedUser');
+    if (loggedUser && !localStorage.getItem('username')) {
+      localStorage.setItem('username', loggedUser);
+    }
+  }, []);
   const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('isLoggedIn') === 'true');
   const [showWelcome, setShowWelcome] = useState(false);
   const [username, setUsername] = useState(localStorage.getItem('loggedUser') || '');
