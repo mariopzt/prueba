@@ -34,6 +34,11 @@
   padding-left: 30px;
   text-align: start;
 }
+
+.settings-input:-internal-autofill-previewed {
+  box-shadow: 0 0 0 1000px #343c46 inset !important;
+  color: #ffffff !important;
+}
 .settings-div:hover {
   background: #283042;
   color: #fff;
@@ -56,6 +61,14 @@
   margin-right: auto;
   width: 100%;
   max-width: 320px;
+}
+.settings-input {
+  outline: none;
+  border: 1px solid #677483 !important;
+}
+
+.settings-save-btn {
+  margin-bottom: 50px;
 }
 .settings-lines {
   margin: 0;

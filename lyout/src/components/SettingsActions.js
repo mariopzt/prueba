@@ -53,11 +53,11 @@ export default function SettingsActions() {
                   <form className="settings-user-form" autoComplete="off" onSubmit={e => e.preventDefault()} style={{ marginBottom: 10, width: '100%', maxWidth: 320 }}>
                     <label style={{ display: 'block', marginBottom: 8, color: '#5e6e88', fontWeight: 500, fontSize: 15 }}>
                       Nombre
-                      <input type="text" name="nuevo-username" className="settings-input" style={{ width: '100%', marginTop: 4, marginBottom: 14, padding: '7px 8px', borderRadius: 6, border: '1px solid #bbb', background: '#23272f', color: '#e6e6e6', fontSize: 15 }} />
+                      <input type="text" name="nuevo-username" className="settings-input" style={{ width: '100%', marginTop: 4, marginBottom: 14, padding: '7px 8px', borderRadius: 6, border: '1px solid #bbb', color: '#e6e6e6', fontSize: 15 }} />
                     </label>
                     <label style={{ display: 'block', marginBottom: 8, color: '#5e6e88', fontWeight: 500, fontSize: 15 }}>
                       Contraseña
-                      <input type="password" name="nuevo-password" className="settings-input" style={{ width: '100%', marginTop: 4, marginBottom: 8, padding: '7px 8px', borderRadius: 6, border: '1px solid #bbb', background: '#23272f', color: '#e6e6e6', fontSize: 15 }} />
+                      <input type="password" name="nuevo-password" className="settings-input" style={{ width: '100%', marginTop: 4, marginBottom: 8, padding: '7px 8px', borderRadius: 6, border: '1px solid #bbb', color: '#e6e6e6', fontSize: 15 }} />
                     </label>
                     <button type="submit" className="settings-save-btn" style={{ width: '100%', padding: '9px 0', borderRadius: 6, background: '#1976d2', color: '#fff', fontWeight: 700, border: 'none', fontSize: 16, marginTop: 6, cursor: 'pointer' }}>
                       Guardar
