@@ -659,6 +659,11 @@ body, html {
 .titulo-botella{
 color:#5e6e88bd; 
 }
+@media (max-width: 800px) {
+  .navbar-btn-menuList {
+    margin-left: 20px !important;
+  }
+}
 
 .container {
   display: flex;
