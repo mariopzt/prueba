@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import './settings-actions.css';
 
+const API_BASE = process.env.REACT_APP_API_BASE;
+
 export default function CambiarUsuario({ currentUsername = '' }) {
   const [usuario, setUsuario] = useState(currentUsername || '');
   const [oldPassword, setOldPassword] = useState('');
@@ -14,7 +16,7 @@ export default function CambiarUsuario({ currentUsername = '' }) {
     setLoading(true);
     try {
       // 1. Validar solo la contraseña antigua (no revises si el usuario nuevo es igual o diferente)
-      const loginRes = await fetch('/api/login', {
+      const loginRes = await fetch(`${API_BASE}/api/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username: currentUsername, password: oldPassword })
@@ -27,7 +29,7 @@ export default function CambiarUsuario({ currentUsername = '' }) {
       // 2. Actualizar usuario y contraseña
       if (usuario && newPassword) {
         // Cambia usuario
-        const updateUserRes = await fetch('/api/user/update-username', {
+        const updateUserRes = await fetch(`${API_BASE}/api/user/update-username`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ oldUsername: currentUsername, newUsername: usuario })
@@ -38,7 +40,7 @@ export default function CambiarUsuario({ currentUsername = '' }) {
           return;
         }
         // Cambia contraseña
-        const updatePassRes = await fetch('/api/user/update-password', {
+        const updatePassRes = await fetch(`${API_BASE}/api/user/update-password`, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ username: usuario, newPassword })
