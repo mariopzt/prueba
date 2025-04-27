@@ -15,6 +15,7 @@ import SubtractForm from './components/SubtractForm';
 import EnFaltaList from './components/EnFaltaList';
 import ItemList from './components/ItemList';
 import Navbar from './components/Navbar';
+import SettingsActions from './components/SettingsActions';
 import axios from 'axios';
 
 // Login comnent
@@ -140,8 +141,14 @@ const AppContent = () => {
           {currentTab !== 'hero' && (
             <>
               <div className="welcome-section">
-                <p className="welcome-title">Stock Bodega</p>
-                <p className="welcome-desc">Sistema de control y gestión de productos</p>
+                {currentTab === 'ajustes' ? (
+                  <SettingsActions />
+                ) : (
+                  <>
+                    <p className="welcome-title">Stock Bodega</p>
+                    <p className="welcome-desc">Sistema de control y gestión de productos</p>
+                  </>
+                )}
               </div>
               <div className="container">
                 {currentTab === 'list' && (
@@ -216,6 +223,7 @@ function App() {
           transition={{ duration: 0.6, type: 'spring' }}
           className="welcome-card"
         >
+          {/* Nuevo layout de botones de ajustes */}
           <Welcome nombreUsuario={username} tipoUsuario={tipoUsuario} />
         </motion.div>
       </div>
