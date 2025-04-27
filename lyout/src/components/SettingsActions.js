@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import './settings-actions.css';
+import EliminarUsuario from './EliminarUsuario';
 
 const opciones = [
   { key: 'temas', label: 'Temas', texto: 'GESTIÓN DE TEMAS' },
@@ -167,15 +168,23 @@ export default function SettingsActions() {
                 </div>
               )}
               {op.key === 'eliminar' && (
-                <div style={{ color: '#e74c3c', fontWeight: 700, marginBottom: 10 }}>
-                  ¡Advertencia! Esta acción es irreversible
+                <>
+                  <div style={{ color: '#e74c3c', fontWeight: 700, marginBottom: 10 }}>
+                    ¡Advertencia! Esta acción es irreversible
+                  </div>
+                  <EliminarUsuario onContinue={(usuario) => {
+                    // Aquí puedes manejar la lógica de eliminación
+                    alert('Eliminar usuario: ' + usuario);
+                  }} />
+                </>
+              )}
+              {op.key !== 'eliminar' && (
+                <div className="settings-lines">
+                  {randomLines(op.key).map((line, idx) => (
+                    <div className="settings-line" key={idx}>{line}</div>
+                  ))}
                 </div>
               )}
-              <div className="settings-lines">
-                {randomLines(op.key).map((line, idx) => (
-                  <div className="settings-line" key={idx}>{line}</div>
-                ))}
-              </div>
             </div>
           )}
         </div>

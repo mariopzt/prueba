@@ -36,6 +36,18 @@ app.use('/api/pedidos', pedidosRouter);
 const bcrypt = require('bcryptjs');
 const User = require('./models/user');
 
+// Verificar existencia de usuario
+app.post('/api/user/check', async (req, res) => {
+  try {
+    const { username } = req.body;
+    if (!username) return res.status(400).json({ exists: false, message: 'Falta el nombre de usuario' });
+    const user = await User.findOne({ username });
+    res.json({ exists: !!user });
+  } catch (error) {
+    res.status(500).json({ exists: false, message: 'Error en el servidor' });
+  }
+});
+
 // Cambiar contraseña de usuario
 app.post('/api/user/update-password', async (req, res) => {
   try {
@@ -68,7 +80,7 @@ app.post('/api/user/add', async (req, res) => {
 });
 
 // Eliminar usuario
-app.delete('/api/user/delete', async (req, res) => {
+app.post('/api/user/delete', async (req, res) => {
   try {
     const { username } = req.body;
     if (!username) return res.status(400).json({ message: 'Falta el nombre de usuario' });
@@ -101,6 +113,7 @@ app.post('/api/login', async (req, res) => {
   try {
     const { username, password  } = req.body;
     const user = await User.findOne({ username });
+    console.log('Intentando login:', { username, password, hash: user && user.password });
     if (!user) return res.status(401).json({ message: 'Usuario o contraseña incorrectos' });
     // Verificar el campo Tipo del usuario
     const valid = await bcrypt.compare(password, user.password);
