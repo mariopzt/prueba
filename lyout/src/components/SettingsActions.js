@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
 import './settings-actions.css';
 import EliminarUsuario from './EliminarUsuario';
+import CambiarUsuario from './CambiarUsuario';
 
 const opciones = [
   { key: 'temas', label: 'Temas', texto: 'GESTIÓN DE TEMAS' },
   { key: 'nuevo', label: 'Nuevo Usuario', texto: 'CREAR NUEVO USUARIO' },
-  { key: 'cambiar', label: 'Cambiar Contraseña', texto: 'CAMBIAR CONTRASEÑA DEL USUARIO' },
+  { key: 'cambiar', label: 'Cambiar usuario y contraseña', texto: 'CAMBIAR USUARIO Y CONTRASEÑA DEL USUARIO' },
   { key: 'eliminar', label: 'Eliminar Usuario', texto: 'ELIMINAR USUARIO DEFINITIVAMENTE' },
 ];
 
@@ -163,9 +164,7 @@ export default function SettingsActions() {
                 </>
               )}
               {op.key === 'cambiar' && (
-                <div style={{ marginBottom: 10 }}>
-                  <input type="password" value="********" disabled style={{ fontSize: 18, padding: '4px 8px', borderRadius: 6, border: '1px solid #bbb', background: '#23272f', color: '#aaa', width: 160, textAlign: 'center' }} />
-                </div>
+                <CambiarUsuario currentUsername={currentUsername} />
               )}
               {op.key === 'eliminar' && (
                 <>
@@ -178,7 +177,7 @@ export default function SettingsActions() {
                   }} />
                 </>
               )}
-              {op.key !== 'eliminar' && (
+              {op.key !== 'eliminar' && op.key !== 'cambiar' && (
                 <div className="settings-lines">
                   {randomLines(op.key).map((line, idx) => (
                     <div className="settings-line" key={idx}>{line}</div>
