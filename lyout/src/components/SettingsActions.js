@@ -29,6 +29,8 @@ function randomLines(key) {
   return textos[key] || [];
 }
 
+const API_BASE = process.env.REACT_APP_API_BASE;
+
 export default function SettingsActions() {
   const [selected, setSelected] = useState('');
   const [showModal, setShowModal] = useState(false);
@@ -57,7 +59,7 @@ export default function SettingsActions() {
     // Mostrar en consola el usuario actual y la contraseña ingresada
 
     try {
-      const loginRes = await fetch('/api/login', {
+      const loginRes = await fetch(`${API_BASE}/api/login`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username: currentUsername, password: modalPassword })
@@ -74,7 +76,7 @@ export default function SettingsActions() {
         return;
       }
       // Create new user
-      const userRes = await fetch('/api/user/add', {
+      const userRes = await fetch(`${API_BASE}/api/user/add`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username: nuevoUsername, password: nuevoPassword, tipo: nuevoTipo })
