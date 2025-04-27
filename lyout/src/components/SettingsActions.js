@@ -42,10 +42,35 @@ export default function SettingsActions() {
         >
           <span className="settings-div-label">{op.label}</span>
           {selected === op.key && (
-            <div className="settings-lines">
-              {randomLines(op.key).map((line, idx) => (
-                <div className="settings-line" key={idx}>{line}</div>
-              ))}
+            <div className="settings-special-content">
+              {op.key === 'temas' && (
+                <div style={{ display: 'flex', gap: 8, marginBottom: 10 }}>
+                  <div style={{ width: 24, height: 24, background: '#1976d2', borderRadius: 4 }}></div>
+                  <div style={{ width: 24, height: 24, background: '#43cea2', borderRadius: 4 }}></div>
+                  <div style={{ width: 24, height: 24, background: '#f5b042', borderRadius: 4 }}></div>
+                  <div style={{ width: 24, height: 24, background: '#e74c3c', borderRadius: 4 }}></div>
+                </div>
+              )}
+              {op.key === 'nuevo' && (
+                <div style={{ fontSize: 32, marginBottom: 10, color: '#43cea2' }}>
+                  <span role="img" aria-label="usuario">👤</span>
+                </div>
+              )}
+              {op.key === 'cambiar' && (
+                <div style={{ marginBottom: 10 }}>
+                  <input type="password" value="********" disabled style={{ fontSize: 18, padding: '4px 8px', borderRadius: 6, border: '1px solid #bbb', background: '#23272f', color: '#aaa', width: 160, textAlign: 'center' }} />
+                </div>
+              )}
+              {op.key === 'eliminar' && (
+                <div style={{ color: '#e74c3c', fontWeight: 700, marginBottom: 10 }}>
+                  ¡Advertencia! Esta acción es irreversible
+                </div>
+              )}
+              <div className="settings-lines">
+                {randomLines(op.key).map((line, idx) => (
+                  <div className="settings-line" key={idx}>{line}</div>
+                ))}
+              </div>
             </div>
           )}
         </div>
