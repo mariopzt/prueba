@@ -57,15 +57,14 @@ export default function SettingsActions() {
             <div className="settings-modal-title">Por favor escriba su contraseña</div>
             <input
               type="password"
-              className="settings-input"
+              className="settings-input settings-modal-input"
               placeholder="Contraseña"
               value={modalPassword}
               onChange={e => setModalPassword(e.target.value)}
-              style={{ width: '100%', margin: '20px 0 18px 0', padding: '10px', fontSize: 17, borderRadius: 6 }}
             />
-            <div style={{ display: 'flex', gap: 16, justifyContent: 'center' , marginTop: 10 }}>
-              <button className="settings-modal-btn" style={{ background: '#1976d2', color: '#fff', padding: '8px 24px', borderRadius: 6, border: 'none', fontWeight: 700, fontSize: 16, cursor: 'pointer' }} onClick={handleModalContinue}>Continuar</button>
-              <button className="settings-modal-btn" style={{ background: '#e74c3c', color: '#fff', padding: '8px 24px', borderRadius: 6, border: 'none', fontWeight: 700, fontSize: 16, cursor: 'pointer' }} onClick={handleModalClose}>Cerrar</button>
+            <div className="settings-modal-btns">
+              <button className="settings-modal-btn settings-modal-btn-continuar" onClick={handleModalContinue}>Continuar</button>
+              <button className="settings-modal-btn settings-modal-btn-cerrar" onClick={handleModalClose}>Cerrar</button>
             </div>
           </div>
         </div>
