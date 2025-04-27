@@ -28,7 +28,8 @@
 .settings-div-label {
   padding: 15px 0;
   width: 100%;
-  text-align: center;
+  padding-left: 30px;
+  text-align: start;
 }
 .settings-div:hover {
   background: #283042;
