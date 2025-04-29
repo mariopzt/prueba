@@ -4,30 +4,11 @@ import EliminarUsuario from './EliminarUsuario';
 import CambiarUsuario from './CambiarUsuario';
 
 const opciones = [
-  { key: 'temas', label: 'Temas', texto: 'GESTIÓN DE TEMAS' },
   { key: 'nuevo', label: 'Nuevo Usuario', texto: 'CREAR NUEVO USUARIO' },
   { key: 'cambiar', label: 'Cambiar usuario y contraseña', texto: 'CAMBIAR USUARIO Y CONTRASEÑA DEL USUARIO' },
   { key: 'eliminar', label: 'Eliminar Usuario', texto: 'ELIMINAR USUARIO DEFINITIVAMENTE' },
 ];
 
-function randomLines(key) {
-  const textos = {
-    temas: [
-      'Colores dinámicos', 'Modo oscuro', 'Tema claro', 'Personalización avanzada', 'Paleta de usuario',
-      'Fuente adaptable', 'Contraste mejorado', 'Animaciones suaves', 'Interfaz moderna', 'Diseño responsivo'
-    ],
-
-    cambiar: [
-      'Verificación actual', 'Nueva contraseña', 'Confirmar cambio', 'Seguridad reforzada', 'Requiere sesión',
-      'Notificar usuario', 'Longitud mínima', 'Caracteres especiales', 'Cambio exitoso', 'Actualizar datos'
-    ],
-    eliminar: [
-      'Confirmar eliminación', 'Usuario eliminado', 'Acción irreversible', 'Datos borrados', 'Registro eliminado',
-      'Permisos revocados', 'Notificar administrador', 'Actualizar sistema', 'Eliminar dependencias', 'Proceso finalizado'
-    ],
-  };
-  return textos[key] || [];
-}
 
 const API_BASE = process.env.REACT_APP_API_BASE;
 
@@ -129,14 +110,7 @@ export default function SettingsActions() {
           <span className="settings-div-label">{op.label}</span>
           {selected === op.key && (
             <div className="settings-special-content">
-              {op.key === 'temas' && (
-                <div style={{ display: 'flex', gap: 8, marginBottom: 10 }}>
-                  <div style={{ width: 24, height: 24, background: '#1976d2', borderRadius: 4 }}></div>
-                  <div style={{ width: 24, height: 24, background: '#43cea2', borderRadius: 4 }}></div>
-                  <div style={{ width: 24, height: 24, background: '#f5b042', borderRadius: 4 }}></div>
-                  <div style={{ width: 24, height: 24, background: '#e74c3c', borderRadius: 4 }}></div>
-                </div>
-              )}
+              
               {op.key === 'nuevo' && (
                 <>
                   <form className="settings-user-form" autoComplete="off" onSubmit={handleNuevoUsuarioSubmit}>
@@ -158,11 +132,7 @@ export default function SettingsActions() {
                     <button type="submit" className="settings-save-btn">Guardar</button>
                   </form>
                   {message && <div className="settings-message">{message}</div>}
-                  <div className="settings-lines">
-                    {randomLines(op.key).map((line, idx) => (
-                      <div className="settings-line" key={idx}>{line}</div>
-                    ))}
-                  </div>
+                  
                 </>
               )}
               {op.key === 'cambiar' && (
@@ -179,13 +149,7 @@ export default function SettingsActions() {
                   }} />
                 </>
               )}
-              {op.key !== 'eliminar' && op.key !== 'cambiar' && (
-                <div className="settings-lines">
-                  {randomLines(op.key).map((line, idx) => (
-                    <div className="settings-line" key={idx}>{line}</div>
-                  ))}
-                </div>
-              )}
+              
             </div>
           )}
         </div>
